@@ -14,3 +14,8 @@ func (h *Inbound) UpdateUsers(users []option.Hysteria2User) error {
 	h.service.UpdateUsers(userNameList, userPasswordList)
 	return nil
 }
+
+// CloseUserSessions disconnects the user's current sessions without changing credentials.
+func (h *Inbound) CloseUserSessions(name string) {
+	h.service.CloseUserSessions(name)
+}
