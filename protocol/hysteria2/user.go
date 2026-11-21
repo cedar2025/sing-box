@@ -5,15 +5,17 @@ import (
 )
 
 func (h *Inbound) UpdateUsers(users []option.Hysteria2User) error {
-	userList := make([]int, 0, len(users))
 	userNameList := make([]string, 0, len(users))
 	userPasswordList := make([]string, 0, len(users))
-	for index, user := range users {
-		userList = append(userList, index)
+	for _, user := range users {
 		userNameList = append(userNameList, user.Name)
 		userPasswordList = append(userPasswordList, user.Password)
 	}
-	h.service.UpdateUsers(userList, userPasswordList)
-	h.userNameList = userNameList
+	h.service.UpdateUsers(userNameList, userPasswordList)
 	return nil
+}
+
+// CloseUserSessions disconnects the user's current sessions without changing credentials.
+func (h *Inbound) CloseUserSessions(name string) {
+	h.service.CloseUserSessions(name)
 }
